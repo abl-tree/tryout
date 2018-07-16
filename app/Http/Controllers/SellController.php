@@ -35,11 +35,23 @@ class SellController extends Controller
         
         $marker['draggable'] = true;  
         $marker['position'] = 'Davao City, Philippines';  
-        $marker['ondrag'] = 'getLatLong(event)';  
+        $marker['ondrag'] = 'getLatLong(event)';
+        //Marker event dragend
+        $marker['ondragend'] = '
+        iw_map.close();
+        reverseGeocode(event.latLng, function(status, result, mark){
+            if(status == 200){
+                iw_map.setContent(result);
+                iw_map.open(map, mark);
+            }
+        }, this);
+        ';
+
         GMaps::add_marker($marker);
+        /*********** End Marker Setup ***********/
 
         $map = GMaps::create_map();
-
+        
         return view('sell')->with('map', $map);
     }
 
