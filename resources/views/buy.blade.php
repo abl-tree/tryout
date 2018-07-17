@@ -14,12 +14,15 @@
                         </div>
                     @endif
                     <div class="row">
+                        <autocomplete></autocomplete>
+                    </div>
+                    <!-- <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
                                 <input type="text" class="form-control" id="search" placeholder="Search" name="search" required>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="row">
                         <div class="col-md-12">
                             {!! $map['html'] !!}
@@ -39,9 +42,9 @@
     <script type="text/javascript">
 
         // Create the search box and link it to the UI element.
-        var input = document.getElementById('search');
-        var searchBox = new google.maps.places.SearchBox(input);
-        map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+        // var input = document.getElementById('search');
+        // var searchBox = new google.maps.places.SearchBox(input);
+        // map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
 
         function getLatLong(event) {
             console.log(event.latLng.lat());

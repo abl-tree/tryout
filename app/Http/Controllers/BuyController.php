@@ -15,7 +15,7 @@ class BuyController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        // $this->middleware('auth');
     }
 
     /**
@@ -23,16 +23,25 @@ class BuyController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        $sales = array();
         $config = array();
-        $config['center'] = 'Davao City, Philippines';
         $config['places'] = true;
-        $config['zoom'] = '16';
         $config['scrollwheel'] = false;
-        GMaps::initialize($config);
 
-        $sales = Sale::with("seller")->get();
+        if($propid = $request->id) {
+            $sales = Sale::with("seller")->where('id', $propid)->get();
+            $location = $sales[0]->latitude.", ".$sales[0]->longitude;
+            $config['center'] = $location;
+            $config['zoom'] = '20';
+        } else {
+            $config['center'] = 'Davao City, Philippines';
+            $config['zoom'] = '14';
+            $sales = Sale::with("seller")->get();
+        }
+
+        GMaps::initialize($config);
 
         foreach ($sales as $key => $value) {
             $location = $value->latitude.", ".$value->longitude;

@@ -37,15 +37,16 @@ class SellController extends Controller
         $marker['position'] = 'Davao City, Philippines';  
         $marker['ondrag'] = 'getLatLong(event)';
         //Marker event dragend
+        $addressAttr = "'address'";
         $marker['ondragend'] = '
         iw_map.close();
         reverseGeocode(event.latLng, function(status, result, mark){
             if(status == 200){
                 iw_map.setContent(result);
                 iw_map.open(map, mark);
+                $(".sell-form input[name='.$addressAttr.']").val(result);
             }
-        }, this);
-        ';
+        }, this);';
 
         GMaps::add_marker($marker);
         /*********** End Marker Setup ***********/
@@ -58,6 +59,7 @@ class SellController extends Controller
     public function sell(Request $request) {
         Validator::make($request->all(), [
             'price' => 'required',
+            'address' => 'required',
             'latitude' => 'required',
             'longitude' => 'required',
         ])->validate();
@@ -66,6 +68,7 @@ class SellController extends Controller
         $sale->latitude = $request->latitude;
         $sale->longitude = $request->longitude;
         $sale->price = $request->price;
+        $sale->address = $request->address;
         $sale->seller_id = Auth::id();
         $sale->save();
 

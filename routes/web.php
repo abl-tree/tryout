@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('home');
 });
 
 Auth::routes();
@@ -20,8 +20,8 @@ Auth::routes();
 Route::get('login/facebook', 'Auth\LoginController@redirectToProvider')->name('login');
 Route::get('login/callback', 'Auth\LoginController@handleProviderCallback');
 
-Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/buy', 'BuyController@index')->name('buy');
+// Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'BuyController@index')->name('buy');
 Route::get('/sell', 'SellController@index')->name('sell');
 Route::post('/sellprop', 'SellController@sell')->name('sellprop');
 

@@ -17,6 +17,7 @@ class CreateSalesTable extends Migration
             $table->increments('id');
             $table->string('latitude');
             $table->string('longitude');
+            $table->string('address');
             $table->decimal('price', 12, 3);
             $table->unsignedInteger('seller_id');
             $table->foreign('seller_id')->references('id')->on('users');

@@ -21,6 +21,7 @@
                         <div class="col-md-4">
                             <form class="sell-form">
                                 @csrf
+                                <input type="hidden" name="address">
                                 <div class="form-group">
                                     <label for="latitude">Location (Lat, Long)</label>
                                     <div class="row">
@@ -51,14 +52,14 @@
     
     {!! $map['js'] !!}
 
-    <script>
+    <script type="text/javascript" defer>
 
         function getLatLong(event) {
             $('#latitude').val(event.latLng.lat());
             $('#longitude').val(event.latLng.lng());
         }
 
-        $(document).ready(function (){
+        $(document).ready(function() {
             $(".sell-form").submit(function(event){
                 event.preventDefault(); 
                 // Find disabled inputs, and remove the "disabled" attribute

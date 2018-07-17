@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Http\Request;
+use App\Http\Resources\SaleCollection;
+use App\Sale;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,4 +17,15 @@ use Illuminate\Http\Request;
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+Route::post('/sales/search', function(Request $request){
+    $query = $request->q;
+
+    $sales = Sale::where('address', 'like','%'.$query.'%')
+        ->where('address', 'like','%Davao%')
+        ->get();
+    return response()->json($sales);
+
+    // return new SaleCollection($sales);
 });
