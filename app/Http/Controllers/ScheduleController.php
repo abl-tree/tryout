@@ -21,7 +21,7 @@ class ScheduleController extends Controller
     }
 
     public function index() {
-        $schedule = Schedule::with('customer', 'property.seller')->get();
+        $schedule = Schedule::with('customer', 'property.seller')->orderBy('sched_date', 'asc')->get();
 
         return view('schedule')->with(['schedules' => $schedule]);
     }
@@ -32,14 +32,25 @@ class ScheduleController extends Controller
             'prop_id' => 'required',
         ])->validate();
         
+        $response = array();
         $schedule = new Schedule;
-        $schedule->prop_id = $request->prop_id;
-        $schedule->customer_id = Auth::id();
-        $schedule->sched_date = Carbon::parse($request->sched);
-        $schedule->save();
+        
+        $exists = $schedule->where(['prop_id' => $request->prop_id, 'customer_id' => Auth::id()])->first();
+        
+        if(!$exists){
+            $schedule->prop_id = $request->prop_id;
+            $schedule->customer_id = Auth::id();
+            $schedule->sched_date = Carbon::parse($request->sched);
+            $schedule->save();
+        } else {
+            $response = array('status' => 'error', 'message' => 'You have been scheduled for this property.', 'title' => 'Try another property');
+            echo json_encode($response);
+            return;
+        }
 
         if($schedule) {
-            echo json_encode(true);
+            $response = array('status' => 'success', 'message' => 'Property has been scheduled.', 'title' => 'Set!');
+            echo json_encode($response);
         } else {
             echo json_encode(false);
         }

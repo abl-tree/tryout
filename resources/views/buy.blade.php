@@ -124,7 +124,7 @@
                     success: function(data) {
                         if(data) {
                             $(".schedule-form")[0].reset();
-                            swal("Set!", "Schedule has been set.", "success");
+                            swal(data.title, data.message, data.status);
                         }
                     },
                     error: function(err) {
