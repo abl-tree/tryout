@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use GMaps;
 use App\Sale;
+use Validator;
 
 class BuyController extends Controller
 {
@@ -31,7 +32,12 @@ class BuyController extends Controller
         $config['scrollwheel'] = false;
 
         if($propid = $request->id) {
+            Validator::make($request->all(), [
+                'id' => 'required|exists:sales',
+            ])->validate();
+
             $sales = Sale::with("seller")->where('id', $propid)->get();
+
             $location = $sales[0]->latitude.", ".$sales[0]->longitude;
             $config['center'] = $location;
             $config['zoom'] = '20';
@@ -41,6 +47,7 @@ class BuyController extends Controller
 
         GMaps::initialize($config);
 
+        if($sales)
         foreach ($sales as $key => $value) {
             $location = $value->latitude.", ".$value->longitude;
             $marker['title'] = "For sale";

@@ -29,23 +29,21 @@
     </br>
     <div class="container">
         <div class="row">
-            <!-- <div class="row"> -->
-                @if($props)
-                    @foreach($props as $prop)
-                        <div class="col-lg-4">
-                            <div class="card">
-                                <img class="card-img-top" src="https://www.siasat.com/wp-content/uploads/2017/11/real-estate.jpg" alt="Card image cap">
-                                <div class="card-body">
-                                    <h5 class="card-title">{{$prop->address}}</h5>
-                                    <h6 class="card-subtitle mb-2 text-muted">for sale</h6>
-                                    <p class="card-text"><strong>Price: </strong>{{number_format($prop->price,2,".",",")}}</p>
-                                    <a href="{{route('buy')}}?id={{$prop->id}}" class="card-link">View Details</a>
-                                </div>
+            @if($props)
+                @foreach($props as $prop)
+                    <div class="col-lg-4">
+                        <div class="card">
+                            <img class="card-img-top" src="https://www.siasat.com/wp-content/uploads/2017/11/real-estate.jpg" alt="Card image cap">
+                            <div class="card-body">
+                                <h5 class="card-title">{{$prop->address}}</h5>
+                                <h6 class="card-subtitle mb-2 text-muted">for sale</h6>
+                                <p class="card-text"><strong>Price: </strong>{{number_format($prop->price,2,".",",")}}</p>
+                                <a href="{{route('buy')}}?id={{$prop->id}}" class="card-link">View Details</a>
                             </div>
                         </div>
-                    @endforeach
-                @endif
-            <!-- </div> -->
+                    </div>
+                @endforeach
+            @endif
         </div>
     </div>
 </div>
@@ -54,18 +52,5 @@
 @section('js') 
     
     {!! $map['js'] !!}
-
-    <script type="text/javascript">
-
-        // Create the search box and link it to the UI element.
-        // var input = document.getElementById('search');
-        // var searchBox = new google.maps.places.SearchBox(input);
-        // map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
-
-        function getLatLong(event) {
-            console.log(event.latLng.lat());
-        }
-
-    </script>   
 
 @endsection
