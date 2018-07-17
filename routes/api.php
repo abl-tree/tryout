@@ -22,10 +22,13 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::post('/sales/search', function(Request $request){
     $query = $request->q;
 
+    if(!$query) {
+        return null;
+    }
+
     $sales = Sale::where('address', 'like','%'.$query.'%')
         ->where('address', 'like','%Davao%')
         ->get();
+        
     return response()->json($sales);
-
-    // return new SaleCollection($sales);
 });

@@ -103,16 +103,6 @@
     {!! $map['js'] !!}
 
     <script type="text/javascript">
-
-        // Create the search box and link it to the UI element.
-        // var input = document.getElementById('search');
-        // var searchBox = new google.maps.places.SearchBox(input);
-        // map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
-
-        function getLatLong(event) {
-            console.log(event.latLng.lat());
-        }
-
         $(document).ready(function() {        
             $(function () {
                 $('#datetimepicker1').datetimepicker({

@@ -16,6 +16,7 @@
                     <div class="row">
                         <autocomplete></autocomplete>
                     </div>
+                    </br>
                     <div class="row">
                         <div class="col-md-12">
                             {!! $map['html'] !!}
@@ -25,6 +26,7 @@
             </div>
         </div>
     </div>
+    </br>
     <div class="container">
         <div class="row">
             <!-- <div class="row"> -->
@@ -37,7 +39,7 @@
                                     <h5 class="card-title">{{$prop->address}}</h5>
                                     <h6 class="card-subtitle mb-2 text-muted">for sale</h6>
                                     <p class="card-text"><strong>Price: </strong>{{number_format($prop->price,2,".",",")}}</p>
-                                    <a href="{{route('buy')}}?id={{$prop->id}}" class="card-link">View</a>
+                                    <a href="{{route('buy')}}?id={{$prop->id}}" class="card-link">View Details</a>
                                 </div>
                             </div>
                         </div>
