@@ -17,12 +17,12 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('login/facebook', 'Auth\LoginController@redirectToProvider')->name('login');
+Route::get('login', 'Auth\LoginController@redirectToProvider')->name('login');
 Route::get('login/callback', 'Auth\LoginController@handleProviderCallback');
 
-// Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/home', 'BuyController@index')->name('buy');
+Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/buy', 'BuyController@index')->name('buy');
 Route::get('/sell', 'SellController@index')->name('sell');
 Route::post('/sellprop', 'SellController@sell')->name('sellprop');
-
-Route::get('/test', 'BuyController@test');
+Route::post('/add/schedule', 'ScheduleController@schedule')->name('addschedule');
+Route::get('/schedule', 'ScheduleController@index')->name('schedule');

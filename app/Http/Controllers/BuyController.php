@@ -15,7 +15,7 @@ class BuyController extends Controller
      */
     public function __construct()
     {
-        // $this->middleware('auth');
+        $this->middleware('auth');
     }
 
     /**
@@ -36,9 +36,7 @@ class BuyController extends Controller
             $config['center'] = $location;
             $config['zoom'] = '20';
         } else {
-            $config['center'] = 'Davao City, Philippines';
-            $config['zoom'] = '14';
-            $sales = Sale::with("seller")->get();
+            return redirect('home');
         }
 
         GMaps::initialize($config);
@@ -53,22 +51,6 @@ class BuyController extends Controller
         
         $map = GMaps::create_map();
 
-        return view('buy')->with('map', $map);
-    }
-
-    public function test() {        
-        $config = array();
-        $config['places'] = true;
-        $config['placesLocation'] = "Davao City";
-        $config['placesRadius'] = 500;
-        $config['placesName'] = "Davao City";
-        $config['zoom'] = '16';
-        $config['scrollwheel'] = false;
-        GMaps::initialize($config);
-
-        $map = GMaps::create_map();
-
-        echo $map['html'];
-        echo $map['js'];
+        return view('buy')->with(['map' => $map, 'props' => $sales]);
     }
 }
